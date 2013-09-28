@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="80dp"
+        android:layout_height="100dp"
+        android:background="#8800"
+        android:orientation="vertical"
+        android:gravity="center">
+    <ImageView
+            android:id="@+id/thing"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/icon" />
+    <TextView android:id="@+id/title"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:scaleType="centerInside"
+              android:text="AppGhoul\nI see\ndead apps"/>
+</LinearLayout>
