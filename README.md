@@ -4,10 +4,10 @@ Probably only useful for developers.
 
 TODO:
 1. Thumb for rapid scrolling in config
-1. Asynchronously update the configuration list
 1. Is it worth curating copies of the icons?
 
 DONE:
+1. Asynchronously update the configuration list
 1. Display an appghoul selected from a list of currently installed apps
 1. Persist title and intents through reboot and reinstall of AppGhoul
 1. Persist the icons
