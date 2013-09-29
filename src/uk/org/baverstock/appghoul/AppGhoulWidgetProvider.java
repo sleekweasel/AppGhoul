@@ -18,7 +18,7 @@ import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.List;
 
-import static uk.org.baverstock.appghoul.ConfigListOnClickListener.getBitmapFromDrawable;
+import static uk.org.baverstock.appghoul.SetConfigOnClick.getBitmapFromDrawable;
 
 /**
  * When widgets appear, disappear, or need refreshing.
