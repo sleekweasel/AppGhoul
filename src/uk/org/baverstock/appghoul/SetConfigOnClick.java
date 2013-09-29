@@ -50,7 +50,7 @@ class SetConfigOnClick implements View.OnClickListener, View.OnLongClickListener
         editText.setText(info.getDisplayTitle());
         new AlertDialog.Builder(activity)
                 .setView(editText)
-                .setPositiveButton("Rename", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Retitle", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         info.setDisplayTitle(editText.getText().toString());
