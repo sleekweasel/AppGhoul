@@ -32,6 +32,7 @@ public class Configure extends Activity {
 
         GhoulInfoArrayAdapter adapter = new GhoulInfoArrayAdapter(this, widgetId, list);
         collectLaunchers(adapter, list);
+        list.setEnabled(false);
         list.setAdapter(adapter);
     }
 
@@ -58,6 +59,7 @@ public class Configure extends Activity {
                         adapter.sort(new GhoulInfoComparator());
                         adapter.indexFastThumb();
                         list.setFastScrollEnabled(true);
+                        list.setEnabled(true);
                     }
                 });
             }

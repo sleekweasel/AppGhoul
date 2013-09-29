@@ -7,6 +7,7 @@ TODO:
 1. Is it worth curating copies of the icons?
 
 DONE:
+1. Pretty!
 1. Thumb for rapid scrolling in config
 1. Asynchronously update the configuration list
 1. Display an appghoul selected from a list of currently installed apps
