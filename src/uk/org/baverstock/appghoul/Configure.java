@@ -30,9 +30,7 @@ public class Configure extends Activity {
 
         final ListView list = (ListView) findViewById(R.id.list);
 
-
         GhoulInfoArrayAdapter adapter = new GhoulInfoArrayAdapter(this, widgetId, list);
-        adapter.sort(new GhoulInfoComparator());
         collectLaunchers(adapter);
         list.setAdapter(adapter);
     }
@@ -54,6 +52,12 @@ public class Configure extends Activity {
                         }
                     });
                 }
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        adapter.sort(new GhoulInfoComparator());
+                    }
+                });
             }
         };
         new Thread(packageGatherer, "packageGatherer").start();

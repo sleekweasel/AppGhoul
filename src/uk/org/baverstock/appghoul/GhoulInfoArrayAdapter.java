@@ -32,17 +32,31 @@ class GhoulInfoArrayAdapter extends ArrayAdapter<GhoulInfo> {
     public View getView(int position, View convertView, ViewGroup parent) {
         final GhoulInfo info = getItem(position);
 
-        View item = LayoutInflater.from(context).inflate(R.layout.listitem, list, false);
+        View item = convertView != null ? convertView : getInflatedView();
+
         ImageView icon = (ImageView) item.findViewById(R.id.icon);
         TextView name = (TextView) item.findViewById(R.id.name);
 
+        if (icon == null || name == null) {
+            item = getInflatedView();
+            icon = (ImageView) item.findViewById(R.id.icon);
+            name = (TextView) item.findViewById(R.id.name);
+        }
+
         icon.setImageDrawable(info.getResolveInfo().loadIcon(packageManager));
         name.setText(String.format("%s\n%s\n%s", info.getDisplayTitle(), info.getPackage(), info.getClassName()));
+
         item.setTag(info);
+
         SetConfigOnClick l = new SetConfigOnClick(context, widgetId);
         item.setOnClickListener(l);
         item.setLongClickable(true);
         item.setOnLongClickListener(l);
+
         return item;
+    }
+
+    private View getInflatedView() {
+        return LayoutInflater.from(context).inflate(R.layout.listitem, list, false);
     }
 }
