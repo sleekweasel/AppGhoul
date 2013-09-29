@@ -3,6 +3,7 @@ Hacky Android widget that lets you create launcher icons for applications you un
 Probably only useful for developers.
 
 TODO:
+1. Fix out of memory error during lumpy config scrolling.
 1. Thumb for rapid scrolling in config
 1. Is it worth curating copies of the icons?
 
