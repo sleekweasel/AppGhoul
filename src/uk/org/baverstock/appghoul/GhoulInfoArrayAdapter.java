@@ -20,8 +20,8 @@ class GhoulInfoArrayAdapter extends ArrayAdapter<GhoulInfo> {
     private final Configure context;
     private int widgetId;
 
-    public GhoulInfoArrayAdapter(Configure context, int widgetId, ListView list, List<GhoulInfo> ghoulAppsList) {
-        super(context, 0, ghoulAppsList);
+    public GhoulInfoArrayAdapter(Configure context, int widgetId, ListView list) {
+        super(context, 0);
         this.context = context;
         this.list = list;
         this.widgetId = widgetId;
