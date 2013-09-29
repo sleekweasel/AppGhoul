@@ -31,11 +31,11 @@ public class Configure extends Activity {
         final ListView list = (ListView) findViewById(R.id.list);
 
         GhoulInfoArrayAdapter adapter = new GhoulInfoArrayAdapter(this, widgetId, list);
-        collectLaunchers(adapter);
+        collectLaunchers(adapter, list);
         list.setAdapter(adapter);
     }
 
-    private void collectLaunchers(final GhoulInfoArrayAdapter adapter) {
+    private void collectLaunchers(final GhoulInfoArrayAdapter adapter, final ListView list) {
         Runnable packageGatherer = new Runnable() {
             @Override
             public void run() {
@@ -56,6 +56,8 @@ public class Configure extends Activity {
                     @Override
                     public void run() {
                         adapter.sort(new GhoulInfoComparator());
+                        adapter.indexFastThumb();
+                        list.setFastScrollEnabled(true);
                     }
                 });
             }
