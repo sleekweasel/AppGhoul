@@ -60,6 +60,7 @@ public class Configure extends Activity {
                         adapter.indexFastThumb();
                         list.setFastScrollEnabled(true);
                         list.setEnabled(true);
+                        Toast.makeText(Configure.this, "Long press to retitle a launcher", Toast.LENGTH_LONG).show();
                     }
                 });
             }
