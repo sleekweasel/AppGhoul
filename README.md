@@ -5,6 +5,7 @@ Probably only useful for developers.
 TODO:
 
 1. Update icon to tombstone/icon when app is un/installed for a plain main launcher.
+1. Shortcut to app details screen: Force close, etc. Maybe shift the icon left and have a small settings icon.
 1. Do something clever for the icon when the intent isn't a plain main launcher... maybe.
 1. Fix out of memory error during lumpy config scrolling.
 1. Is it worth curating copies of the icons?
