@@ -9,6 +9,7 @@ TODO:
 
 DONE:
 
+1. Permit editing of the Intent's URL as well as its title, for extra twiddliness.
 1. Pretty!
 1. Thumb for rapid scrolling in config
 1. Asynchronously update the configuration list
