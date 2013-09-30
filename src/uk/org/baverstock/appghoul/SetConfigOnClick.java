@@ -5,22 +5,24 @@ import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RemoteViews;
 
-import java.util.zip.Inflater;
+import java.net.URISyntaxException;
 
 /**
-* Clicking on an entry configures that entry.
-*/
+ * Clicking on an entry configures that entry.
+ */
 class SetConfigOnClick implements View.OnClickListener, View.OnLongClickListener {
 
     private final Configure activity;
@@ -46,22 +48,46 @@ class SetConfigOnClick implements View.OnClickListener, View.OnLongClickListener
     @Override
     public boolean onLongClick(View view) {
         final GhoulInfo info = (GhoulInfo) view.getTag();
-        final EditText editText = new EditText(activity);
-        editText.setText(info.getDisplayTitle());
-        new AlertDialog.Builder(activity)
-                .setView(editText)
-                .setPositiveButton("Retitle", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        info.setDisplayTitle(editText.getText().toString());
-                        updateGhoulWidget(info, activity, widgetId);
+        View custom = LayoutInflater.from(activity).inflate(R.layout.edit, null);
 
-                        Intent widgetIntent = new Intent();
-                        widgetIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
-                        activity.setResult(Activity.RESULT_OK, widgetIntent);
-                        activity.finish();
-                    }
-                }).show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity).setView(custom);
+
+        final EditText editText = (EditText) custom.findViewById(R.id.edit_title);
+        editText.setText(info.getDisplayTitle());
+        final EditText editUrl = (EditText) custom.findViewById(R.id.edit_url);
+        editUrl.setText(info.getIntent().toUri(Intent.URI_INTENT_SCHEME));
+        final Button button = (Button) custom.findViewById(R.id.edit_repurpose);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    info.setDisplayTitle(editText.getText().toString());
+                    Intent intent = Intent.parseUri(editUrl.getText().toString(), 0);
+                    info.setIntent(intent);
+                    updateGhoulWidget(info, activity, widgetId);
+                    Intent widgetIntent = new Intent();
+                    widgetIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
+                    activity.setResult(Activity.RESULT_OK, widgetIntent);
+                    activity.finish();
+                } catch (URISyntaxException e) {
+                }
+            }
+        });
+        editUrl.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                try {
+                    Intent.parseUri(editUrl.getText().toString(), Intent.URI_INTENT_SCHEME);
+                    button.setEnabled(true);
+                    editUrl.setBackgroundColor(Color.WHITE);
+                } catch (URISyntaxException e) {
+                    button.setEnabled(false);
+                    editUrl.setBackgroundColor(Color.RED);
+                }
+                return false;
+            }
+        });
+        builder.show();
         return true;
     }
 
@@ -69,9 +95,12 @@ class SetConfigOnClick implements View.OnClickListener, View.OnLongClickListener
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
 
         RemoteViews remoteViews = new RemoteViews(context.getPackageName(), R.layout.widget);
-        Intent launcherIntent = new Intent(Intent.ACTION_MAIN, null);
-        launcherIntent.addCategory(Intent.CATEGORY_LAUNCHER);
-        launcherIntent.setClassName(info.getPackage(), info.getClassName());
+
+//        Intent launcherIntent = new Intent(Intent.ACTION_MAIN, null);
+//        launcherIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+//        launcherIntent.setClassName(info.getPackage(), info.getClassName());
+
+        Intent launcherIntent = info.getIntent();
 
         PendingIntent pending = PendingIntent.getActivity(context, 0, launcherIntent, 0);
         remoteViews.setOnClickPendingIntent(R.id.widget, pending);
@@ -85,7 +114,8 @@ class SetConfigOnClick implements View.OnClickListener, View.OnLongClickListener
 
         appWidgetManager.updateAppWidget(widgetId, remoteViews);
 
-        SharedPreferences.Editor prefs = context.getSharedPreferences(context.getPackageName(), Context.MODE_PRIVATE).edit();
+        SharedPreferences.Editor prefs = context.getSharedPreferences(context.getPackageName(),
+                Context.MODE_PRIVATE).edit();
         prefs.putString("intent." + widgetId, launcherIntent.toURI().toString());
         prefs.putString("title." + widgetId, title.toString());
         prefs.commit();

@@ -69,11 +69,15 @@ public class Configure extends Activity {
     }
 
     static GhoulInfo convertToGhoulFood(ResolveInfo resolveInfo, PackageManager packageManager) {
-            GhoulInfo ghoul = new GhoulInfo();
-            ghoul.setResolveInfo(resolveInfo);
-            ghoul.setDisplayTitle((String) resolveInfo.loadLabel(packageManager));
-            ghoul.setPackage(resolveInfo.activityInfo.packageName);
-            ghoul.setClassName(resolveInfo.activityInfo.name);
+        GhoulInfo ghoul = new GhoulInfo();
+        ghoul.setResolveInfo(resolveInfo);
+        ghoul.setDisplayTitle((String) resolveInfo.loadLabel(packageManager));
+
+        Intent launcherIntent = new Intent(Intent.ACTION_MAIN, null);
+        launcherIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+        launcherIntent.setClassName(resolveInfo.activityInfo.packageName, resolveInfo.activityInfo.name);
+
+        ghoul.setIntent(launcherIntent);
         return ghoul;
     }
 

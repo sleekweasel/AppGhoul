@@ -43,7 +43,7 @@ class GhoulInfoArrayAdapter extends ArrayAdapter<GhoulInfo> implements SectionIn
         }
 
         icon.setImageDrawable(info.getResolveInfo().loadIcon(packageManager));
-        name.setText(String.format("%s\n%s\n%s", info.getDisplayTitle(), info.getPackage(), info.getClassName()));
+        name.setText(info.getDisplayTitle());
 
         item.setTag(info);
 

@@ -1,5 +1,6 @@
 package uk.org.baverstock.appghoul;
 
+import android.content.Intent;
 import android.content.pm.ResolveInfo;
 
 /**
@@ -9,8 +10,7 @@ import android.content.pm.ResolveInfo;
 public class GhoulInfo {
     private ResolveInfo resolveInfo;
     private String displayTitle;
-    private String className;
-    private String aPackage;
+    private Intent intent;
 
     public void setResolveInfo(ResolveInfo resolveInfo) {
         this.resolveInfo = resolveInfo;
@@ -18,14 +18,6 @@ public class GhoulInfo {
 
     public void setDisplayTitle(String displayTitle) {
         this.displayTitle = displayTitle;
-    }
-
-    public void setPackage(String aPackage) {
-        this.aPackage = aPackage;
-    }
-
-    public void setClassName(String className) {
-        this.className = className;
     }
 
     public ResolveInfo getResolveInfo() {
@@ -37,11 +29,16 @@ public class GhoulInfo {
         return displayTitle;
     }
 
-    public String getPackage() {
-        return aPackage;
+    public Intent getIntent() {
+        /*
+        Intent launcherIntent = new Intent(Intent.ACTION_MAIN, null);
+        launcherIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+        launcherIntent.setClassName(info.getPackage(), info.getClassName());
+        */
+        return intent;
     }
 
-    public String getClassName() {
-        return className;
+    public void setIntent(Intent intent) {
+        this.intent = intent;
     }
 }
