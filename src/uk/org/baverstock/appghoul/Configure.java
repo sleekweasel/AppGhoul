@@ -16,12 +16,13 @@ import java.util.List;
  */
 
 public class Configure extends Activity {
-    private int widgetId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.applist);
+
+        int widgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -56,7 +57,12 @@ public class Configure extends Activity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        adapter.sort(new GhoulInfoComparator());
+                        adapter.sort(new Comparator<GhoulInfo>() {
+                            @Override
+                            public int compare(GhoulInfo resolveInfo, GhoulInfo resolveInfo2) {
+                                return resolveInfo.getDisplayTitle().compareToIgnoreCase(resolveInfo2.getDisplayTitle());
+                            }
+                        });
                         adapter.indexFastThumb();
                         list.setFastScrollEnabled(true);
                         list.setEnabled(true);
@@ -81,10 +87,4 @@ public class Configure extends Activity {
         return ghoul;
     }
 
-    private static class GhoulInfoComparator implements Comparator<GhoulInfo> {
-        @Override
-        public int compare(GhoulInfo resolveInfo, GhoulInfo resolveInfo2) {
-            return resolveInfo.getDisplayTitle().compareToIgnoreCase(resolveInfo2.getDisplayTitle());
-        }
-    }
 }
