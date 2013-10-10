@@ -4,8 +4,7 @@ Probably only useful for developers.
 
 TODO:
 
-1. Monitor app un/installs, to update the icon when an app or intent is gone.
-1. Update icon to tombstone/icon when app is un/installed for a plain main launcher.
+1. Monitor app un/installs, to check and update the icons when their intents becomes in/actionable.
 1. Shortcut to app details screen: Force close, etc. Maybe shift the icon left and have a small settings icon.
 1. Do something clever for the icon when the intent isn't a plain main launcher... maybe.
 1. Fix out of memory error during lumpy config scrolling.
