@@ -11,9 +11,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.widget.RemoteViews;
-import android.widget.Toast;
 
-import java.net.URISyntaxException;
 import java.util.List;
 
 /**
@@ -27,49 +25,36 @@ public class WidgetUpdater {
         PackageManager packageManager = context.getPackageManager();
 
         for (int appWidgetId : appWidgetIds) {
-            try {
-                RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget);
+            GhoulInfo ghoul = GhoulInfo.ghoulFromPrefs(prefs, appWidgetId);
 
-                setBitmapAndLaunchIntent(context, prefs, packageManager, appWidgetId, views);
+            RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget);
 
-                setTitle(prefs, appWidgetId, views);
+            Intent launchIntent = ghoul.getIntent();
 
-                setControlIntent(context, appWidgetId, views);
-
-                appWidgetManager.updateAppWidget(appWidgetId, views);
-            } catch (URISyntaxException e) {
-                e.printStackTrace();
+            Bitmap bitmap = getBitmapForIntent(packageManager, launchIntent);
+            if (bitmap != null) {
+                views.setBitmap(R.id.wicon, "setImageBitmap", bitmap);
             }
+
+            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, launchIntent, 0);
+            views.setOnClickPendingIntent(R.id.widget, pendingIntent);
+
+            views.setCharSequence(R.id.title, "setText", ghoul.getDisplayTitle());
+
+            setControlIntent(context, appWidgetId, views);
+
+            appWidgetManager.updateAppWidget(appWidgetId, views);
         }
-    }
-
-    private static void setBitmapAndLaunchIntent(
-            Context context, SharedPreferences prefs, PackageManager packageManager, int appWidgetId,
-            RemoteViews views
-    ) throws URISyntaxException
-    {
-        String intentUri = prefs.getString("intent." + appWidgetId, "about:");
-
-        Intent launchIntent = Intent.getIntent(intentUri);
-
-        Bitmap bitmap = getBitmapForIntent(packageManager, launchIntent);
-        if (bitmap != null) {
-            views.setBitmap(R.id.wicon, "setImageBitmap", bitmap);
-        }
-
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, launchIntent, 0);
-        views.setOnClickPendingIntent(R.id.widget, pendingIntent);
-    }
-
-    private static void setTitle(SharedPreferences prefs, int appWidgetId, RemoteViews views) {
-        String title = prefs.getString("title." + appWidgetId, "UndeadApp " + appWidgetId);
-        views.setCharSequence(R.id.title, "setText", title);
     }
 
     private static void setControlIntent(Context context, int appWidgetId, RemoteViews views) {
         // Set different data, for unique pending intent (even though I actually use extras)
-        Intent controlIntent = new Intent(null, android.net.Uri.parse("differentiate://"+appWidgetId), context.getApplicationContext(), Configure.class);
-        controlIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
+        Intent controlIntent = new Intent(
+                null,
+                android.net.Uri.parse("differentiate://" + appWidgetId),
+                context.getApplicationContext(),
+                ControlsChoiceActivity.class);
+        GhoulInfo.setWidgetAppIdExtra(controlIntent, appWidgetId);
         PendingIntent pendingIntentControl = PendingIntent.getActivity(context, 0, controlIntent, 0);
         views.setOnClickPendingIntent(R.id.wcontrol, pendingIntentControl);
     }
@@ -77,7 +62,8 @@ public class WidgetUpdater {
     private static Bitmap getBitmapForIntent(PackageManager packageManager, Intent intent) {
         Bitmap bitmap = null;
         List<ResolveInfo> pkgAppsList = packageManager.queryIntentActivities(intent, 0);
-        if (pkgAppsList.size() == 1) {
+        // Maybe if there're multiple, cook them into a pretty display!
+        if (pkgAppsList.size() >= 1) {
             Drawable drawable = pkgAppsList.get(0).loadIcon(packageManager);
             bitmap = getBitmapFromDrawable(drawable);
         }

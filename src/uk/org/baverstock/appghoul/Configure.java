@@ -1,7 +1,6 @@
 package uk.org.baverstock.appghoul;
 
 import android.app.Activity;
-import android.appwidget.AppWidgetManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -22,12 +21,7 @@ public class Configure extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.applist);
 
-        int widgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
-
-        Bundle extras = getIntent().getExtras();
-        if (extras != null) {
-            widgetId = extras.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
-        }
+        int widgetId = GhoulInfo.getWidgetIdFromExtras(this);
 
         final ListView list = (ListView) findViewById(R.id.list);
 
