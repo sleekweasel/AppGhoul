@@ -32,9 +32,10 @@ public class WidgetUpdater {
             Intent launchIntent = ghoul.getIntent();
 
             Bitmap bitmap = getBitmapForIntent(packageManager, launchIntent);
-            if (bitmap != null) {
-                views.setBitmap(R.id.wicon, "setImageBitmap", bitmap);
+            if (bitmap == null) {
+                bitmap = getBitmapFromDrawable(context.getResources().getDrawable(R.drawable.icon));
             }
+            views.setBitmap(R.id.wicon, "setImageBitmap", bitmap);
 
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, launchIntent, 0);
             views.setOnClickPendingIntent(R.id.widget, pendingIntent);

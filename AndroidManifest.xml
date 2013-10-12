@@ -14,15 +14,37 @@
                        android:resource="@xml/appwidget_provider" />
         </receiver>
 
-        <activity android:name=".Configure">
+        <activity android:name=".Configure"
+                  android:excludeFromRecents="true"
+                >
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE"/>
             </intent-filter>
         </activity>
 
-        <activity android:name=".ControlsChoiceActivity"/>
+        <activity android:name=".ControlsChoiceActivity"
+                  android:theme="@android:style/Theme.Dialog"
+                  android:excludeFromRecents="true"
+                />
 
-        <activity android:name=".ReconfigureWidget"/>
+        <activity android:name=".ReconfigureWidget"
+                android:theme="@android:style/Theme.Dialog"
+                android:excludeFromRecents="true"
+                />
+
+        <receiver
+                android:name=".WidgetRescanner"
+                android:label="WidgetRescanner"
+                >
+        <intent-filter>
+            <action android:name="android.intent.action.PACKAGE_ADDED"/>
+            <action android:name="android.intent.action.PACKAGE_CHANGED"/>
+            <action android:name="android.intent.action.PACKAGE_REPLACED"/>
+            <action android:name="android.intent.action.PACKAGE_REMOVED"/>
+            <data android:scheme="package" />
+        </intent-filter>
+
+        </receiver>
 
     </application>
 </manifest>

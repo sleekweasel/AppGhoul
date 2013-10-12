@@ -8,7 +8,7 @@
     <Button android:id="@+id/button_app_details"
             android:layout_height="wrap_content"
             android:layout_width="fill_parent"
-            android:text="Application details"
+            android:text="Application info"
             android:onClick="onAppDetails"
             />
 

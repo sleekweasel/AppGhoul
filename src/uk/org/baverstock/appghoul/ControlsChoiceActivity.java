@@ -46,11 +46,6 @@ public class ControlsChoiceActivity extends Activity {
         setContentView(R.layout.controls_choice);
     }
 
-    public void onAppDetails(View unused_view) {
-        String aPackage = getPlatformCarefully();
-        showInstalledAppDetails(this, aPackage);
-    }
-
     private String getPlatformCarefully() {
         Intent intent = ghoul.getIntent();
         String aPackage = intent.getPackage();
@@ -58,10 +53,17 @@ public class ControlsChoiceActivity extends Activity {
         return aPackage;
     }
 
+    public void onAppDetails(View unused_view) {
+        String aPackage = getPlatformCarefully();
+        showInstalledAppDetails(this, aPackage);
+        finish();
+    }
+
     public void onReconfigure(View unused_view) {
         Intent reconfigure = new Intent(this, ReconfigureWidget.class);
         GhoulInfo.setWidgetAppIdExtra(reconfigure, widgetId);
         startActivity(reconfigure);
+        finish();
     }
 
     private static final String SCHEME = "package";
