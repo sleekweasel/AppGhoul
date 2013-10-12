@@ -4,14 +4,15 @@ Probably only useful for developers.
 
 TODO:
 
-1. Monitor app un/installs, to check and update the icons when their intents becomes in/actionable.
-1. Shortcut to app details screen: Force close, etc. Maybe shift the icon left and have a small settings icon.
+1. Monitor app un/installs, to update the icons when their intents becomes in/actionable.
+1. Corner ring shows an 'extras' menu: app details (for an app), edit details, and existing from-launcher screen. 
 1. Do something clever for the icon when the intent isn't a plain main launcher... maybe.
+1. Allow per-icon user-selected background colours.
 1. Fix out of memory error during lumpy config scrolling.
-1. Is it worth curating copies of the icons?
 
 DONE:
 
+1. Added corner ring to reconfigure the widget - precursor to 'extras' menu.
 1. Permit editing of the Intent's URL as well as its title, for extra twiddliness.
 1. Pretty!
 1. Thumb for rapid scrolling in config
