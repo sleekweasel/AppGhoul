@@ -20,6 +20,13 @@ class SetConfigOnClick implements View.OnClickListener, View.OnLongClickListener
         this.widgetId = widgetId;
     }
 
+    private void setActivityResult() {
+        Intent widgetIntent = new Intent();
+        GhoulInfo.setWidgetAppIdExtra(widgetIntent, widgetId);
+        activity.setResult(Activity.RESULT_OK, widgetIntent);
+        activity.finish();
+    }
+
     @Override
     public void onClick(View view) {
         GhoulInfo info = (GhoulInfo) view.getTag();
@@ -29,18 +36,14 @@ class SetConfigOnClick implements View.OnClickListener, View.OnLongClickListener
         setActivityResult();
     }
 
-    private void setActivityResult() {
-        Intent widgetIntent = new Intent();
-        GhoulInfo.setWidgetAppIdExtra(widgetIntent, widgetId);
-        activity.setResult(Activity.RESULT_OK, widgetIntent);
-        activity.finish();
-    }
-
     @Override
     public boolean onLongClick(View view) {
+        GhoulInfo info = (GhoulInfo) view.getTag();
+        updateGhoulPrefsAndWidget(info, activity, widgetId);
         Intent reconfigure = new Intent(activity.getApplicationContext(), ReconfigureWidget.class);
         GhoulInfo.setWidgetAppIdExtra(reconfigure, widgetId);
         activity.startActivity(reconfigure);
+        setActivityResult();
         return true;
     }
 

@@ -13,6 +13,7 @@ UNDOABLE:
 
 DONE:
 
+1. Add loading dialogue, fix reconfigure long-press.
 1. Substitute corner ring action with touch on text area
 1. Monitor app un/installs, to update the icons when their intents becomes in/actionable.
 1. Corner ring shows an 'extras' menu: app details (for an app), edit details, and anything else I think of.

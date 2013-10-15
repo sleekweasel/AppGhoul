@@ -1,6 +1,7 @@
 package uk.org.baverstock.appghoul;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -16,6 +17,8 @@ import java.util.List;
 
 public class Configure extends Activity {
 
+    private AlertDialog dialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +32,7 @@ public class Configure extends Activity {
         collectLaunchers(adapter, list);
         list.setEnabled(false);
         list.setAdapter(adapter);
+        dialog = new AlertDialog.Builder(this).setMessage("Loading...").show();
     }
 
     private void collectLaunchers(final GhoulInfoArrayAdapter adapter, final ListView list) {
@@ -54,12 +58,14 @@ public class Configure extends Activity {
                         adapter.sort(new Comparator<GhoulInfo>() {
                             @Override
                             public int compare(GhoulInfo resolveInfo, GhoulInfo resolveInfo2) {
-                                return resolveInfo.getDisplayTitle().compareToIgnoreCase(resolveInfo2.getDisplayTitle());
+                                return resolveInfo.getDisplayTitle().compareToIgnoreCase(
+                                        resolveInfo2.getDisplayTitle());
                             }
                         });
                         adapter.indexFastThumb();
                         list.setFastScrollEnabled(true);
                         list.setEnabled(true);
+                        dialog.dismiss();
                         Toast.makeText(Configure.this, "Long press to retitle a launcher", Toast.LENGTH_LONG).show();
                     }
                 });
