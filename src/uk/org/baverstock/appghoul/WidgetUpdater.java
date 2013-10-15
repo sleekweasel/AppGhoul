@@ -10,6 +10,7 @@ import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.widget.RemoteViews;
 
 import java.util.List;
@@ -25,6 +26,7 @@ public class WidgetUpdater {
         PackageManager packageManager = context.getPackageManager();
 
         for (int appWidgetId : appWidgetIds) {
+            Log.d("WidgetUpdater", "Updating widget " + appWidgetId);
             GhoulInfo ghoul = GhoulInfo.ghoulFromPrefs(prefs, appWidgetId);
 
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget);
@@ -38,7 +40,7 @@ public class WidgetUpdater {
             views.setBitmap(R.id.wicon, "setImageBitmap", bitmap);
 
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, launchIntent, 0);
-            views.setOnClickPendingIntent(R.id.widget, pendingIntent);
+            views.setOnClickPendingIntent(R.id.wicon, pendingIntent);
 
             views.setCharSequence(R.id.title, "setText", ghoul.getDisplayTitle());
 
@@ -57,7 +59,7 @@ public class WidgetUpdater {
                 ControlsChoiceActivity.class);
         GhoulInfo.setWidgetAppIdExtra(controlIntent, appWidgetId);
         PendingIntent pendingIntentControl = PendingIntent.getActivity(context, 0, controlIntent, 0);
-        views.setOnClickPendingIntent(R.id.wcontrol, pendingIntentControl);
+        views.setOnClickPendingIntent(R.id.title, pendingIntentControl);
     }
 
     private static Bitmap getBitmapForIntent(PackageManager packageManager, Intent intent) {

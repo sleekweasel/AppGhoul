@@ -1,49 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout
+<LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/widget"
         android:layout_width="@dimen/width"
         android:layout_height="@dimen/height"
         android:background="@drawable/bloop"
         android:gravity="center"
+        android:orientation="vertical"
         >
 
     <ImageView
-            android:id="@+id/wcontrol"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/ring"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            />
-    <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/ring"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:visibility="invisible"
-            />
-    <ImageView
             android:id="@+id/wicon"
-            android:layout_width="60dp"
-            android:layout_height="60dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:scaleType="centerInside"
             android:src="@drawable/icon"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
+            android:adjustViewBounds="true"
             />
 
     <TextView android:id="@+id/title"
-              android:layout_width="wrap_content"
+              android:layout_width="fill_parent"
               android:layout_height="wrap_content"
-              android:layout_weight="0"
+              android:layout_weight="1"
+              android:background="@drawable/title_border"
               android:gravity="center"
-              android:layout_below="@id/wicon"
-              android:layout_alignParentBottom="true"
-              android:layout_centerHorizontal="true"
               android:textSize="@dimen/title_size"
               android:textColor="#ffff"
               android:shadowColor="#8000"
@@ -52,4 +34,4 @@
               android:shadowDy="2"
               android:text="I see\ndead apps"
             />
-</RelativeLayout>
+</LinearLayout>
