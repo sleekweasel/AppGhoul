@@ -12,7 +12,7 @@ import android.widget.*;
 public class Configure extends Activity {
 
     private AlertDialog dialog;
-    private ListView list;
+    private GridView list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +21,7 @@ public class Configure extends Activity {
 
         int widgetId = GhoulInfo.getWidgetIdFromExtras(this);
 
-        list = (ListView) findViewById(R.id.list);
+        list = (GridView) findViewById(R.id.list);
 
         GhoulInfoArrayAdapter adapter = new GhoulInfoArrayAdapter(this, widgetId, list);
        adapter.collectLaunchers();

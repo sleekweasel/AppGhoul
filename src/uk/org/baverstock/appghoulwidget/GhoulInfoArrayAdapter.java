@@ -16,14 +16,14 @@ import java.util.List;
 * Presents each ghoul as a list item.
 */
 class GhoulInfoArrayAdapter extends ArrayAdapter<GhoulInfo> implements SectionIndexer {
-    private final ListView list;
+    private final GridView list;
     private final PackageManager packageManager;
     private final Configure context;
     private int widgetId;
     private String[] sectionHeading;
     private Integer[] appIndexForSectionHeading;
 
-    public GhoulInfoArrayAdapter(Configure context, int widgetId, ListView list) {
+    public GhoulInfoArrayAdapter(Configure context, int widgetId, GridView list) {
         super(context, 0);
         this.context = context;
         this.list = list;
@@ -54,13 +54,13 @@ class GhoulInfoArrayAdapter extends ArrayAdapter<GhoulInfo> implements SectionIn
 
         View item = convertView != null ? convertView : getInflatedView();
 
-        ImageView icon = (ImageView) item.findViewById(R.id.icon);
-        TextView name = (TextView) item.findViewById(R.id.name);
+        ImageView icon = (ImageView) item.findViewById(R.id.wicon);
+        TextView name = (TextView) item.findViewById(R.id.title);
 
         if (icon == null || name == null) {
             item = getInflatedView();
-            icon = (ImageView) item.findViewById(R.id.icon);
-            name = (TextView) item.findViewById(R.id.name);
+            icon = (ImageView) item.findViewById(R.id.wicon);
+            name = (TextView) item.findViewById(R.id.title);
         }
 
         icon.setImageDrawable(info.getResolveInfo().loadIcon(packageManager));
@@ -77,7 +77,7 @@ class GhoulInfoArrayAdapter extends ArrayAdapter<GhoulInfo> implements SectionIn
     }
 
     private View getInflatedView() {
-        return LayoutInflater.from(context).inflate(R.layout.listitem, list, false);
+        return LayoutInflater.from(context).inflate(R.layout.widget, list, false);
     }
 
     public void createFastThumbIndex() {
