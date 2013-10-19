@@ -5,7 +5,7 @@
         android:id="@+id/widget"
         android:layout_width="@dimen/width"
         android:layout_height="@dimen/height"
-        android:background="@drawable/bloop"
+        android:background="@drawable/widget_border"
         android:gravity="center"
         android:orientation="vertical"
         >

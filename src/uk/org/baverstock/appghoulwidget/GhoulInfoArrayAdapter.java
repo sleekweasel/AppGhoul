@@ -1,4 +1,4 @@
-package uk.org.baverstock.appghoul;
+package uk.org.baverstock.appghoulwidget;
 
 import android.content.Intent;
 import android.content.pm.PackageManager;

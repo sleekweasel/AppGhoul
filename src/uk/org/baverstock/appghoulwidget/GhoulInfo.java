@@ -1,4 +1,4 @@
-package uk.org.baverstock.appghoul;
+package uk.org.baverstock.appghoulwidget;
 
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ResolveInfo;
 import android.os.Bundle;
-import android.widget.Toast;
 
 import java.net.URISyntaxException;
 

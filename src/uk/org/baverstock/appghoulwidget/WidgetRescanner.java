@@ -1,12 +1,7 @@
-package uk.org.baverstock.appghoul;
+package uk.org.baverstock.appghoulwidget;
 
 import android.appwidget.AppWidgetManager;
 import android.content.*;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
-import android.test.mock.MockPackageManager;
-
-import java.util.List;
 
 /**
  * Re-scans widget intents for viability on package un/install.

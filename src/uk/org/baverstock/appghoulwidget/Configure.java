@@ -1,10 +1,7 @@
-package uk.org.baverstock.appghoul;
+package uk.org.baverstock.appghoulwidget;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.os.Bundle;
 import android.widget.*;
 

@@ -1,4 +1,4 @@
-package uk.org.baverstock.appghoul;
+package uk.org.baverstock.appghoulwidget;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -13,7 +13,7 @@ import android.widget.EditText;
 
 import java.net.URISyntaxException;
 
-import static uk.org.baverstock.appghoul.SetConfigOnClick.updateGhoulPrefsAndWidget;
+import static uk.org.baverstock.appghoulwidget.SetConfigOnClick.updateGhoulPrefsAndWidget;
 
 /**
  * Allows the user to edit the title and intent.

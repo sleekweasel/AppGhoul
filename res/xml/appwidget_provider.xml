@@ -6,13 +6,13 @@
         android:minHeight="72dp"
         android:updatePeriodMillis="86400000"
         android:initialLayout="@layout/widget"
-        android:configure="uk.org.baverstock.appghoul.Configure"
-    >
+        android:configure="uk.org.baverstock.appghoulwidget.Configure">
 <!--
-    android:configure="com.example.android.ExampleAppWidgetConfigure"
-    android:resizeMode="horizontal|vertical"
+
     android:previewImage="@drawable/icon"
     android:widgetCategory="home_screen"
+    android:resizeMode="horizontal|vertical"
     android:initialKeyguardLayout="@layout/example_keyguard"
+
  -->
 </appwidget-provider>
