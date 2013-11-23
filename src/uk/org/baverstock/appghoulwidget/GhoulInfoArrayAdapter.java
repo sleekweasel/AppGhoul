@@ -32,6 +32,7 @@ class GhoulInfoArrayAdapter extends ArrayAdapter<GhoulInfo> implements SectionIn
     }
 
     void collectLaunchers() {
+        // Use a LoaderManager...
         new Thread(new PackageGatherer(), "packageGatherer").start();
     }
 

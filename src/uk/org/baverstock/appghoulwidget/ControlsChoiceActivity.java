@@ -2,6 +2,7 @@ package uk.org.baverstock.appghoulwidget;
 
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,7 +15,8 @@ import android.widget.Toast;
 
 /**
  * Presents a dialogue to offer control options:
- * 1. Open app details (if the intent )
+ * 0. Launch intent - in case you pressed the wrong place
+ * 1. Open app details (if the intent has one)
  * 2. Open long-press edit dialogue (including colours, eventually)
  * 3. Perhaps jump to launcher-chooser list. Maybe. Seems a bit pointless though.
  */
@@ -46,19 +48,30 @@ public class ControlsChoiceActivity extends Activity {
         setContentView(R.layout.controls_choice);
     }
 
+    @SuppressWarnings("unused")
+    public void onLaunchIntent(View unused_view) {
+        startActivity(ghoul.getIntent());
+        finish();
+    }
+
     private String getPlatformCarefully() {
         Intent intent = ghoul.getIntent();
         String aPackage = intent.getPackage();
-        aPackage = aPackage != null ? aPackage : intent.getComponent().getPackageName();
+        if (aPackage == null) {
+            ComponentName component = intent.getComponent();
+            aPackage = component == null ? null : component.getPackageName();
+        }
         return aPackage;
     }
 
+    @SuppressWarnings("unused")
     public void onAppDetails(View unused_view) {
         String aPackage = getPlatformCarefully();
         showInstalledAppDetails(this, aPackage);
         finish();
     }
 
+    @SuppressWarnings("unused")
     public void onReconfigure(View unused_view) {
         Intent reconfigure = new Intent(this, ReconfigureWidget.class);
         GhoulInfo.setWidgetAppIdExtra(reconfigure, widgetId);

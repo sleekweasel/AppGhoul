@@ -24,15 +24,28 @@ public class Configure extends Activity {
         list = (GridView) findViewById(R.id.list);
 
         GhoulInfoArrayAdapter adapter = new GhoulInfoArrayAdapter(this, widgetId, list);
-       adapter.collectLaunchers();
+        adapter.collectLaunchers();
         list.setEnabled(false);
         list.setAdapter(adapter);
         dialog = new AlertDialog.Builder(this).setMessage("Loading...").show();
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        dismissDialogue();
+    }
+
     public void collectionComplete() {
         list.setFastScrollEnabled(true);
         list.setEnabled(true);
-        dialog.dismiss();
+        dismissDialogue();
+    }
+
+    private void dismissDialogue() {
+        if (dialog != null && dialog.isShowing()) {
+            dialog.dismiss();
+            dialog = null;
+        }
     }
 }

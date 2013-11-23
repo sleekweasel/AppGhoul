@@ -5,6 +5,13 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content">
 
+    <Button android:id="@+id/button_launch"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:text="Launch intent"
+            android:onClick="onLaunchIntent"
+            />
+
     <Button android:id="@+id/button_app_details"
             android:layout_height="wrap_content"
             android:layout_width="fill_parent"
