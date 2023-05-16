@@ -2,6 +2,8 @@ Hacky Android widget that lets you create persistent launcher icons for applicat
 
 Probably only useful for developers.
 
+No user accounts - no user data collected.
+
 TODO:
 
 1. Support non-app launchers?
